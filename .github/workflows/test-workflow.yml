@@ -33,7 +33,8 @@ jobs:
                 git config user.name ${{ secrets.BALLERINA_BOT_USERNAME }}
                 git config user.email ${{ secrets.BALLERINA_BOT_EMAIL }}
                 git checkout -b ${{ github.event.client_payload.ballerinaDistVersion }}
-                git add .
+                sed -i "s/ballerinaLangVersion=.*/ballerinaLangVersion=${{ github.event.client_payload.ballerinaLangVersion }}/" gradle.properties 
+                git add gradle.properties
                 git commit -m "Create branch ${{ github.event.client_payload.ballerinaDistVersion }}" || echo "No changes to commit"
 
             - name: Github Release
