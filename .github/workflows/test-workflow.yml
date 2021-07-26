@@ -29,8 +29,9 @@ jobs:
               env:
                 GITHUB_TOKEN: ${{ secrets.BALLERINA_BOT_TOKEN }}
               run: |
-              git config user.name ${{ secrets.BALLERINA_BOT_USERNAME}}
-              git config user.email ${{ secrets.BALLERINA_BOT_EMAIL}}
+              echo "Version: ${{ github.event.client_payload.connectorVersion }}"
+              git config user.name ${{ secrets.BALLERINA_BOT_USERNAME }}
+              git config user.email ${{ secrets.BALLERINA_BOT_EMAIL }}
               git checkout -b ${{ github.event.client_payload.ballerinaDistVersion }}
               git add .
               git commit -m "Create branch ${{ github.event.client_payload.ballerinaDistVersion }}" || echo "No changes to commit"
