@@ -42,4 +42,4 @@ jobs:
               env:
                 GITHUB_TOKEN: ${{ secrets.BALLERINA_BOT_TOKEN }}
               run: |
-                gh release create v${{ github.event.client_payload.connectorVersion }} --branch ${{ github.event.client_payload.ballerinaDistVersion }} --title "Ballerina Mongodb Connector ${{ github.event.client_payload.connectorVersion }} released!"
+                gh release create v${{ github.event.client_payload.connectorVersion }} --target ${{ github.event.client_payload.ballerinaDistVersion }} --title "Ballerina Mongodb Connector ${{ github.event.client_payload.connectorVersion }} released!"
