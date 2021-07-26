@@ -2,7 +2,7 @@ name: Test
 
 on:
   workflow_dispatch:
-  repository-dispatch:
+  repository_dispatch:
     types: [ connector-release-pipeline]
 
 jobs:
