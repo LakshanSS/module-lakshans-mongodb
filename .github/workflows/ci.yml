@@ -23,41 +23,41 @@ jobs:
             - name: Grant execute permission for gradlew
               run: chmod +x gradlew
 
-            - name: Build with Gradle
-              env:
-                packageUser: ${{ github.actor }}
-                packagePAT: ${{ secrets.GITHUB_TOKEN }}
-                JAVA_OPTS: -DBALLERINA_DEV_COMPILE_BALLERINA_ORG=true
-              run: |
-                ./gradlew build
+            # - name: Build with Gradle
+            #   env:
+            #     packageUser: ${{ github.actor }}
+            #     packagePAT: ${{ secrets.GITHUB_TOKEN }}
+            #     JAVA_OPTS: -DBALLERINA_DEV_COMPILE_BALLERINA_ORG=true
+            #   run: |
+            #     ./gradlew build
      
-            - name: Ballerina Build W/O tests
-              uses: ballerina-platform/ballerina-action/@nightly
-              with:
-                args:
-                  build --skip-tests -c mongodb
-              env:
-                JAVA_HOME: /usr/lib/jvm/default-jvm
-                JAVA_OPTS: -DBALLERINA_DEV_COMPILE_BALLERINA_ORG=true
-            - name: Ballerina Build W/ tests
-              uses: ballerina-platform/ballerina-action/@nightly
-              with:
-                args:
-                  test --groups mongodb mongodb
-              env:
-                JAVA_HOME: /usr/lib/jvm/default-jvm
-                # Following credentials are only used during testing in docker container
-                MONGODB_HOST: mongodb
-                MONGODB_USER: admin
-                MONGODB_PASSWORD: admin
-            - name: Ballerina Build W/ tests (SSL)
-              uses: ballerina-platform/ballerina-action/@nightly
-              with:
-                args:
-                  test --groups mongodb-ssl
-              env:
-                JAVA_HOME: /usr/lib/jvm/default-jvm
-                # Following credentials are only used during testing in docker container
-                WORKING_DIR: ./mongodb
-                MONGODB_HOST: mongodb-ssl
-                MONGODB_USER: C=US,ST=CA,L=San Francisco,O=Jaspersoft,OU=JSDev,CN=admin
+            # - name: Ballerina Build W/O tests
+            #   uses: ballerina-platform/ballerina-action/@nightly
+            #   with:
+            #     args:
+            #       build --skip-tests -c mongodb
+            #   env:
+            #     JAVA_HOME: /usr/lib/jvm/default-jvm
+            #     JAVA_OPTS: -DBALLERINA_DEV_COMPILE_BALLERINA_ORG=true
+            # - name: Ballerina Build W/ tests
+            #   uses: ballerina-platform/ballerina-action/@nightly
+            #   with:
+            #     args:
+            #       test --groups mongodb mongodb
+            #   env:
+            #     JAVA_HOME: /usr/lib/jvm/default-jvm
+            #     # Following credentials are only used during testing in docker container
+            #     MONGODB_HOST: mongodb
+            #     MONGODB_USER: admin
+            #     MONGODB_PASSWORD: admin
+            # - name: Ballerina Build W/ tests (SSL)
+            #   uses: ballerina-platform/ballerina-action/@nightly
+            #   with:
+            #     args:
+            #       test --groups mongodb-ssl
+            #   env:
+            #     JAVA_HOME: /usr/lib/jvm/default-jvm
+            #     # Following credentials are only used during testing in docker container
+            #     WORKING_DIR: ./mongodb
+            #     MONGODB_HOST: mongodb-ssl
+            #     MONGODB_USER: C=US,ST=CA,L=San Francisco,O=Jaspersoft,OU=JSDev,CN=admin
