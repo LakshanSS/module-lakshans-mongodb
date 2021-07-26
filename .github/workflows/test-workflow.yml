@@ -36,6 +36,8 @@ jobs:
                 sed -i "s/ballerinaLangVersion=.*/ballerinaLangVersion=${{ github.event.client_payload.ballerinaLangVersion }}/" gradle.properties 
                 git add gradle.properties
                 git commit -m "Create branch ${{ github.event.client_payload.ballerinaDistVersion }}" || echo "No changes to commit"
+                git remote -v
+                git push -u origin ${{ github.event.client_payload.ballerinaDistVersion }}
 
             - name: Github Release
               env:
