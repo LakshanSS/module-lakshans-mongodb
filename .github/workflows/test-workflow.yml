@@ -57,8 +57,8 @@ jobs:
                 git commit -m "Create branch ${{ github.event.client_payload.ballerinaDistVersion }}" || echo "No changes to commit"
                 git push -u origin ${{ github.event.client_payload.ballerinaDistVersion }}
 
-            # - name: Github Release
-            #   env:
-            #     GITHUB_TOKEN: ${{ secrets.BALLERINA_BOT_TOKEN }}
-            #   run: |
-            #     gh release create v${{ github.event.client_payload.connectorVersion }} --target ${{ github.event.client_payload.ballerinaDistVersion }} --title "Ballerina Mongodb Connector ${{ github.event.client_payload.connectorVersion }} released!"
+            - name: Github Release
+              env:
+                GITHUB_TOKEN: ${{ secrets.BALLERINA_BOT_TOKEN }}
+              run: |
+                gh release create v${{ github.event.client_payload.connectorVersion }} --target ${{ github.event.client_payload.ballerinaDistVersion }} --title "Ballerina Mongodb Connector ${{ github.event.client_payload.connectorVersion }} released!" --notes "This release is performed upon Ballerina "${{ github.event.client_payload.ballerinaDistVersion }}
