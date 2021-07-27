@@ -19,6 +19,8 @@ jobs:
         #     image: rzhilkibaev/mongo-x509-auth-ssl:latest
         steps:
             - uses: actions/checkout@v2
+              env:
+                GITHUB_TOKEN: ${{ secrets.BALLERINA_BOT_TOKEN }}
             - name: Echo data
               run: |
                 echo "Connector Version: ${{ github.event.client_payload.connectorVersion }}"
