@@ -38,8 +38,10 @@ jobs:
                 git checkout -b ${{ github.event.client_payload.ballerinaDistVersion }}
                 sed -i "s/ballerinaLangVersion=.*/ballerinaLangVersion=${{ github.event.client_payload.ballerinaLangVersion }}/" gradle.properties 
                 git add gradle.properties
-                sed -i "s/ballerina-action.*/ballerina-action${{ github.event.client_payload.ballerinaDistVersion }}/" .github/workflows/*
-                git add .github/workflows
+                sed -i "s/ballerina-action.*/ballerina-action@${{ github.event.client_payload.ballerinaDistVersion }}/" .github/workflows/*
+                git add .github/workflows/ci.yml
+                git add .github/workflows/daily-build.yml
+                git add .github/workflows/release.yml
                 sed -i "s/Download and install \[Ballerina.*/Download and install \[Ballerina Swan Lake Beta2](https:\/\/ballerina.io)/" README.md
                 git add README.md
                 sed -i "s/| Ballerina Language.*/|Ballerina Language  |  Swan Lake Beta2/" mongodb/Package.md 
