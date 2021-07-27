@@ -35,11 +35,25 @@ jobs:
                 git checkout -b ${{ github.event.client_payload.ballerinaDistVersion }}
                 sed -i "s/ballerinaLangVersion=.*/ballerinaLangVersion=${{ github.event.client_payload.ballerinaLangVersion }}/" gradle.properties 
                 git add gradle.properties
+                sed -i "s/ballerina-action.*/ballerina-action${{ github.event.client_payload.ballerinaDistVersion }}/" .github/workflows/*
+                git add .github/workflows
+                sed -i "s/Download and install \[Ballerina.*/Download and install \[Ballerina Swan Lake Beta2](https:\/\/ballerina.io)/" README.md
+                git add README.md
+                sed -i "s/| Ballerina Language.*/|Ballerina Language  |  Swan Lake Beta2/" mongodb/Package.md 
+                git add mongodb/Package.md 
+                OLD_VERSION=$((grep -w 'version' | cut -d= -f2) < gradle.properties)
+                echo $OLD_VERSION
+                sed -i "s/$OLD_VERSION/${{ github.event.client_payload.connectorVersion }}/" gradle.properties
+                git add gradle.properties
+                sed -i "s/$OLD_VERSION/${{ github.event.client_payload.connectorVersion }}/" mongodb/Ballerina.toml 
+                git add mongodb/Ballerina.toml 
+                sed -i "s/$OLD_VERSION/${{ github.event.client_payload.connectorVersion }}/" mongodb-native/src/main/java/org/ballerinalang/mongodb/MongoDBConstants.java
+                git add mongodb-native/src/main/java/org/ballerinalang/mongodb/MongoDBConstants.java
                 git commit -m "Create branch ${{ github.event.client_payload.ballerinaDistVersion }}" || echo "No changes to commit"
                 git push -u origin ${{ github.event.client_payload.ballerinaDistVersion }}
 
-            - name: Github Release
-              env:
-                GITHUB_TOKEN: ${{ secrets.BALLERINA_BOT_TOKEN }}
-              run: |
-                gh release create v${{ github.event.client_payload.connectorVersion }} --target ${{ github.event.client_payload.ballerinaDistVersion }} --title "Ballerina Mongodb Connector ${{ github.event.client_payload.connectorVersion }} released!"
+            # - name: Github Release
+            #   env:
+            #     GITHUB_TOKEN: ${{ secrets.BALLERINA_BOT_TOKEN }}
+            #   run: |
+            #     gh release create v${{ github.event.client_payload.connectorVersion }} --target ${{ github.event.client_payload.ballerinaDistVersion }} --title "Ballerina Mongodb Connector ${{ github.event.client_payload.connectorVersion }} released!"
