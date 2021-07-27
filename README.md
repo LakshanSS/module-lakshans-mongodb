@@ -495,7 +495,7 @@ public function main() {
 
         > **Note:** Set the JAVA_HOME environment variable to the path name of the directory into which you installed JDK.
 
-2. Download and install [Ballerina Swann Lake Alpha5](https://ballerina.io/). 
+2. Download and install [Ballerina Swan Lake Beta2](https://ballerina.io)
 
 ## Building the Source
 
