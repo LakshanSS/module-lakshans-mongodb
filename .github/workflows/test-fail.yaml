@@ -1,0 +1,12 @@
+name: Test Fail Notification
+
+on: [workflow_dispatch]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            # Send failure notification
+            - name: Notify failure
+              run: |
+                echo 'This it to test the failure notification'
